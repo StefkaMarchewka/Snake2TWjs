@@ -17,8 +17,8 @@ class SnakeView {
 
     }
 
-    renderSnakeTail(snakeSize, boardSize, centerOfTheBoard, grids) {
-        let currentTailPosition = centerOfTheBoard;
+    renderSnakeTail(snakeSize, boardSize, position, grids) {
+        let currentTailPosition = position;
         for (let i = 0; i < snakeSize -1; i++) {
             grids.item(currentTailPosition - boardSize).style.backgroundColor = "red";
             grids.item(currentTailPosition - boardSize).classList.add("snake");
