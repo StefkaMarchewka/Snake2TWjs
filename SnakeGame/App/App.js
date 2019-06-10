@@ -1,3 +1,6 @@
 let boardModel = new Board(40);
-let boardController = new BoardController(boardModel);
+let boardView = new BoardView();
+let boardController = new BoardController(boardModel, boardView);
+
 boardController.createBoard();
+boardController.createWall();
