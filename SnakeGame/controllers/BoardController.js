@@ -1,23 +1,13 @@
-
 class BoardController {
+    constructor(boardModel) {
+        this.boardModel = boardModel;
+    }
+
     createBoard() {
-        for (let rows = 0; rows < 40; rows++) {
-            for (let columns = 0; columns < 40; columns++) {
-                $("#container").append("<div class='grid'></div>");
-            }
-        }
-        $(".grid").width(960/40);
-        $(".grid").height(960/40);
+        let boardModelSize = this.boardModel.boardSize;
+        let boardView = new BoardView();
+
+        boardView.renderBoardView(boardModelSize);
     }
 }
 
-/*
-function createBoard() {
-    for (let rows = 0; rows < 40; rows++) {
-        for (let columns = 0; columns < 40; columns++) {
-            $("#container").append("<div class='grid'></div>");
-        }
-    }
-    $(".grid").width(960/40);
-    $(".grid").height(960/40);
-}*/
