@@ -5,10 +5,9 @@ class SnakeController {
         this.boardModel = boardModel;
     }
 
-    initalizeSnake() {
+    initializeSnake() {
         let snakeSpeed = 250;
         let startingSize = this.snakeModel.snakeSize;
-
         this.placeSnakeInTheCenter(startingSize);
         this.moveSnake(snakeSpeed);
     }
@@ -16,6 +15,7 @@ class SnakeController {
     placeSnakeInTheCenter(snakeSize) {
         let boardSize = this.boardModel.boardSize;
         let centerOfTheBoard = this.calculateCenterOfTheBoard(boardSize);
+        this.snakeModel.setHeadPosition = centerOfTheBoard;
         this.snakeView.renderSnakeOnStart(centerOfTheBoard, snakeSize, boardSize);
     }
 
@@ -34,8 +34,10 @@ class SnakeController {
                 case 37:
                     clearInterval(a);
                     a = setInterval(function (){
+                        let snakeHeadPosition = this.snakeModel.getHeadPosition;
+                        this.snakeView.moveSnake("left", this.snakeModel);
                         console.log("Snake is Moving left");
-                    } , snakeSpeed);
+                    }.bind(this) , snakeSpeed);
                     break;
                 case 38:
                     clearInterval(a);
@@ -56,7 +58,7 @@ class SnakeController {
                     } , snakeSpeed);
                     break;
             }
-        }
+        }.bind(this)
 
     }
 

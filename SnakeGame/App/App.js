@@ -9,4 +9,4 @@ let snakeModel = new Snake(11);
 let snakeView = new SnakeView();
 let snakeController = new SnakeController(snakeModel, snakeView, boardModel);
 
-snakeController.initalizeSnake();
+snakeController.initializeSnake();
