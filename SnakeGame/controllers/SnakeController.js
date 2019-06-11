@@ -3,6 +3,7 @@ class SnakeController {
         this.snakeModel = snakeModel;
         this.snakeView = snakeView;
         this.boardModel = boardModel;
+        this.currentDirection = undefined;
     }
 
     initializeSnake() {
@@ -26,10 +27,10 @@ class SnakeController {
         let listOfBodyElements = document.getElementsByClassName("snake");
         let snakeBodyCoordinates = [];
 
-        for (let i = 0; i < listOfBodyElements.length; i ++) {
+        for (let i = 0; i < listOfBodyElements.length; i++) {
             let x = listOfBodyElements.item(i).getAttribute("x");
             let y = listOfBodyElements.item(i).getAttribute("y");
-            snakeBodyCoordinates.push([x,y]);
+            snakeBodyCoordinates.push([x, y]);
             console.log("pushed " + i);
         }
 
@@ -42,40 +43,63 @@ class SnakeController {
 
     moveSnake(snakeSpeed, testList) {
 
-        let a = setInterval(function (){
+        let a = setInterval(function () {
             console.log("Snake is Moving in default direction");
-            } , snakeSpeed);
+        }, snakeSpeed);
 
-        document.onkeydown = function(e) {
+        document.onkeydown = function (e) {
             switch (e.keyCode) {
                 case 37:
-                    clearInterval(a);
-                    a = setInterval(function (){
-                        this.snakeView.moveSnake("left", this.snakeModel, testList);
-                        console.log("Snake is Moving left");
-                    }.bind(this) , snakeSpeed);
+                    if (this.currentDirection === "right") {
+                        console.log("WRONG KEY");
+                    } else {
+                        clearInterval(a);
+                        a = setInterval(function () {
+                            this.currentDirection = "left";
+                            this.snakeView.moveSnake("left", this.snakeModel, testList);
+                            console.log("Snake is Moving left");
+
+                        }.bind(this), snakeSpeed);
+                    }
                     break;
                 case 38:
-                    clearInterval(a);
-                    a = setInterval(function (){
-                        this.snakeView.moveSnake("up", this.snakeModel, testList);
-                        console.log("Snake is Moving up");
-                    }.bind(this) , snakeSpeed);
+                    if (this.currentDirection === "down") {
+                        console.log("WRONG KEY");
+                    } else {
+                        clearInterval(a);
+                        a = setInterval(function () {
+                            this.currentDirection = "up";
+                            this.snakeView.moveSnake("up", this.snakeModel, testList);
+                            console.log("Snake is Moving up");
+
+                        }.bind(this), snakeSpeed);
+                    }
                     break;
                 case 39:
-                    clearInterval(a);
-                    a = setInterval(function (){
-                        this.snakeView.moveSnake("right", this.snakeModel, testList);
-                        console.log("Snake is Moving right");
-                    }.bind(this) , snakeSpeed);
+                    if (this.currentDirection === "left") {
+                        console.log("WRONG KEY");
+                    } else {
+                        clearInterval(a);
+                        a = setInterval(function () {
+                            this.currentDirection = "right";
+                            this.snakeView.moveSnake("right", this.snakeModel, testList);
+                            console.log("Snake is Moving right");
+
+                        }.bind(this), snakeSpeed);
+                    }
                     break;
                 case 40:
-                    clearInterval(a);
-                    a = setInterval(function (){
-                        this.snakeView.moveSnake("down", this.snakeModel, testList);
-                        console.log("Snake is Moving down");
-                    }.bind(this) , snakeSpeed);
-                    break;
+                    if (this.currentDirection === "up") {
+                        console.log("WRONG KEY");
+                    } else {
+                        clearInterval(a);
+                        a = setInterval(function () {
+                            this.currentDirection = "down";
+                            this.snakeView.moveSnake("down", this.snakeModel, testList);
+                            console.log("Snake is Moving down");
+
+                        }.bind(this), snakeSpeed);
+                    }
             }
         }.bind(this)
 
