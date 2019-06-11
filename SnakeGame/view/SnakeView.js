@@ -26,36 +26,58 @@ class SnakeView {
         }
     }
 
-/*    deleteOldHead(position, grids = document.getElementsByClassName("grid")) {
-        grids.item(position).className = "snake";
-        grids.item(position).classList.add("grid");
-    }*/
 
-    moveSnake(direction, snakeModel) {
-        this.changeHeadPosition(direction, snakeModel);
-        this.deleteLastPartOfTail();
+    moveSnake(direction, snakeModel, testList) {
+        this.changeSnakePosition(direction, snakeModel, testList);
     }
 
-    deleteLastPartOfTail() {
-        var grids = document.getElementsByClassName("snake");
 
-        grids.item(0).style.backgroundColor = "blue";
-        grids.item(0).className = "grid";
-        console.log("tail deleted")
+    deleteLastPartOfTail(listOfCurrentCoordinates, snakeModel) {
+        let grids = document.getElementsByClassName("snake");
+        let snakeCoordinates = listOfCurrentCoordinates;
+        let lastTailPartX = snakeCoordinates[0][0];
+        let lastTailPartY = snakeCoordinates[0][1];
+        let lastTailPart = document.querySelectorAll('[x = \"'+lastTailPartX+'\"][y = \"'+lastTailPartY+'\"]');
+        snakeCoordinates.shift();
+
+        console.log(lastTailPart);
+        lastTailPart[0].style.backgroundColor = "blue";
+        lastTailPart[0].className = "grid";
+        console.log("tail deleted");
         console.log("snake size = " + grids.length);
+        snakeModel.setListOfBodyCoordinates = snakeCoordinates;
     }
 
-    changeHeadPosition(direction, snakeModel) {
+    changeSnakePosition(direction, snakeModel, testList) {
         let currentSnakeHeadPosition = snakeModel.getHeadPosition;
 
         switch(direction) {
             case "left":
                 currentSnakeHeadPosition -= 1;
-                snakeModel.setHeadPosition = currentSnakeHeadPosition;
+                let listOfCurrentSnakecoordinates = this.updateBodyCoordinatesList(currentSnakeHeadPosition, snakeModel, testList);
                 this.renderSnakeHead(currentSnakeHeadPosition);
+                this.deleteLastPartOfTail(listOfCurrentSnakecoordinates, snakeModel);
                 //this.deleteOldHead(currentSnakeHeadPosition);
                 break;
-
         }
+    }
+
+    updateBodyCoordinatesList(snakeHeadPosition, snakeModel, testList) {
+        let grids = document.getElementsByClassName("grid");
+        let snakeBodyCoordinates = testList;
+
+        snakeModel.setHeadPosition = snakeHeadPosition;
+
+        let headCoordinateX = grids.item(snakeHeadPosition).getAttribute("x");
+        let headCoordinateY = grids.item(snakeHeadPosition).getAttribute("y");
+
+        snakeBodyCoordinates.push([headCoordinateX, headCoordinateY]);
+
+  /*      document.getElementsByClassName("snakeHead").className = "snake";
+        console.log(document.getElementsByClassName("snakeHead"));*/
+
+        snakeModel.setListOfBodyCoordinates = snakeBodyCoordinates;
+        return snakeBodyCoordinates;
+
     }
 }

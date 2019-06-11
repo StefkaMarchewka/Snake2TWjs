@@ -2,6 +2,7 @@ class Snake {
     constructor(startingSize) {
         this.startingSize = startingSize;
         this.headPosition = 0;
+        this.listOfBodyCoordinates = [];
     }
 
     get snakeSize() {
@@ -13,5 +14,13 @@ class Snake {
     }
     get getHeadPosition() {
         return this.headPosition;
+    }
+
+    get getListOfBodyCoordinates() {
+        return this.listOfBodyCoordinates;
+    }
+
+    set setListOfBodyCoordinates(listOfCoordinates) {
+        this.listOfBodyCoordinates = listOfCoordinates;
     }
 }

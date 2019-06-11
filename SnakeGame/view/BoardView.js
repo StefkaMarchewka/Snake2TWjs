@@ -5,7 +5,7 @@ class BoardView {
     renderBoard(boardModelSize) {
         for (let rows = 0; rows < boardModelSize; rows++) {
             for (let columns = 0; columns < boardModelSize; columns++) {
-                $("#container").append("<div class='grid' x = "+rows.toString()+" y = "+columns.toString()+"></div>");
+                $("#container").append("<div class='grid' x = "+columns.toString()+" y = "+rows.toString()+"></div>");
             }
         }
         $(".grid").width(960/40);

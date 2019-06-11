@@ -9,7 +9,9 @@ class SnakeController {
         let snakeSpeed = 250;
         let startingSize = this.snakeModel.snakeSize;
         this.placeSnakeInTheCenter(startingSize);
-        this.moveSnake(snakeSpeed);
+        let testList = this.snakeModel.getListOfBodyCoordinates;
+        console.log(testList);
+        this.moveSnake(snakeSpeed, testList);
     }
 
     placeSnakeInTheCenter(snakeSize) {
@@ -17,13 +19,28 @@ class SnakeController {
         let centerOfTheBoard = this.calculateCenterOfTheBoard(boardSize);
         this.snakeModel.setHeadPosition = centerOfTheBoard;
         this.snakeView.renderSnakeOnStart(centerOfTheBoard, snakeSize, boardSize);
+        this.snakeModel.setListOfBodyCoordinates = this.getCoordinatesOfSnakeBody();
+    }
+
+    getCoordinatesOfSnakeBody() {
+        let listOfBodyElements = document.getElementsByClassName("snake");
+        let snakeBodyCoordinates = [];
+
+        for (let i = 0; i < listOfBodyElements.length; i ++) {
+            let x = listOfBodyElements.item(i).getAttribute("x");
+            let y = listOfBodyElements.item(i).getAttribute("y");
+            snakeBodyCoordinates.push([x,y]);
+            console.log("pushed " + i);
+        }
+
+        return snakeBodyCoordinates;
     }
 
     calculateCenterOfTheBoard(boardSize) {
         return (boardSize * boardSize) / 2 + (boardSize / 2);
     }
 
-    moveSnake(snakeSpeed) {
+    moveSnake(snakeSpeed, testList) {
 
         let a = setInterval(function (){
             console.log("Snake is Moving in default direction");
@@ -34,8 +51,8 @@ class SnakeController {
                 case 37:
                     clearInterval(a);
                     a = setInterval(function (){
-                        let snakeHeadPosition = this.snakeModel.getHeadPosition;
-                        this.snakeView.moveSnake("left", this.snakeModel);
+                        //let snakeHeadPosition = this.snakeModel.getHeadPosition;
+                        this.snakeView.moveSnake("left", this.snakeModel, testList);
                         console.log("Snake is Moving left");
                     }.bind(this) , snakeSpeed);
                     break;
