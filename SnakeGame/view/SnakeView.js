@@ -28,7 +28,32 @@ class SnakeView {
 
 
     moveSnake(direction, snakeModel, testList) {
-        this.changeSnakePosition(direction, snakeModel, testList);
+        let currentSnakeHeadPosition = snakeModel.getHeadPosition;
+
+        switch(direction) {
+            case "left":
+                currentSnakeHeadPosition -= 1;
+                this.move(currentSnakeHeadPosition, snakeModel, testList);
+                break;
+            case "right":
+                currentSnakeHeadPosition += 1;
+                this.move(currentSnakeHeadPosition, snakeModel, testList);
+                break;
+            case "up":
+                currentSnakeHeadPosition -= 40;
+                this.move(currentSnakeHeadPosition, snakeModel, testList);
+                break;
+            case "down":
+                currentSnakeHeadPosition += 40;
+                this.move(currentSnakeHeadPosition, snakeModel, testList);
+                break;
+        }
+    }
+
+    move(currentSnakeHeadPosition, snakeMode, testList) {
+        let listOfCurrentSnakecoordinates = this.updateBodyCoordinatesList(currentSnakeHeadPosition, snakeModel, testList);
+        this.renderSnakeHead(currentSnakeHeadPosition);
+        this.deleteLastPartOfTail(listOfCurrentSnakecoordinates, snakeModel);
     }
 
 
@@ -48,19 +73,6 @@ class SnakeView {
         snakeModel.setListOfBodyCoordinates = snakeCoordinates;
     }
 
-    changeSnakePosition(direction, snakeModel, testList) {
-        let currentSnakeHeadPosition = snakeModel.getHeadPosition;
-
-        switch(direction) {
-            case "left":
-                currentSnakeHeadPosition -= 1;
-                let listOfCurrentSnakecoordinates = this.updateBodyCoordinatesList(currentSnakeHeadPosition, snakeModel, testList);
-                this.renderSnakeHead(currentSnakeHeadPosition);
-                this.deleteLastPartOfTail(listOfCurrentSnakecoordinates, snakeModel);
-                //this.deleteOldHead(currentSnakeHeadPosition);
-                break;
-        }
-    }
 
     updateBodyCoordinatesList(snakeHeadPosition, snakeModel, testList) {
         let grids = document.getElementsByClassName("grid");
@@ -72,9 +84,6 @@ class SnakeView {
         let headCoordinateY = grids.item(snakeHeadPosition).getAttribute("y");
 
         snakeBodyCoordinates.push([headCoordinateX, headCoordinateY]);
-
-  /*      document.getElementsByClassName("snakeHead").className = "snake";
-        console.log(document.getElementsByClassName("snakeHead"));*/
 
         snakeModel.setListOfBodyCoordinates = snakeBodyCoordinates;
         return snakeBodyCoordinates;

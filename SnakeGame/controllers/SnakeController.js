@@ -51,7 +51,6 @@ class SnakeController {
                 case 37:
                     clearInterval(a);
                     a = setInterval(function (){
-                        //let snakeHeadPosition = this.snakeModel.getHeadPosition;
                         this.snakeView.moveSnake("left", this.snakeModel, testList);
                         console.log("Snake is Moving left");
                     }.bind(this) , snakeSpeed);
@@ -59,20 +58,23 @@ class SnakeController {
                 case 38:
                     clearInterval(a);
                     a = setInterval(function (){
+                        this.snakeView.moveSnake("up", this.snakeModel, testList);
                         console.log("Snake is Moving up");
-                    } , snakeSpeed);
+                    }.bind(this) , snakeSpeed);
                     break;
                 case 39:
                     clearInterval(a);
                     a = setInterval(function (){
+                        this.snakeView.moveSnake("right", this.snakeModel, testList);
                         console.log("Snake is Moving right");
-                    } , snakeSpeed);
+                    }.bind(this) , snakeSpeed);
                     break;
                 case 40:
                     clearInterval(a);
                     a = setInterval(function (){
+                        this.snakeView.moveSnake("down", this.snakeModel, testList);
                         console.log("Snake is Moving down");
-                    } , snakeSpeed);
+                    }.bind(this) , snakeSpeed);
                     break;
             }
         }.bind(this)
