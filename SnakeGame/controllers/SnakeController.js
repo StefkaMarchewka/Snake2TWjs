@@ -7,11 +7,10 @@ class SnakeController {
     }
 
     initializeSnake() {
-        let snakeSpeed = 250;
+        let snakeSpeed = 50;
         let startingSize = this.snakeModel.snakeSize;
         this.placeSnakeInTheCenter(startingSize);
         let testList = this.snakeModel.getListOfBodyCoordinates;
-        console.log(testList);
         this.moveSnake(snakeSpeed, testList);
     }
 
@@ -31,7 +30,6 @@ class SnakeController {
             let x = listOfBodyElements.item(i).getAttribute("x");
             let y = listOfBodyElements.item(i).getAttribute("y");
             snakeBodyCoordinates.push([x, y]);
-            console.log("pushed " + i);
         }
 
         return snakeBodyCoordinates;
@@ -44,7 +42,7 @@ class SnakeController {
     moveSnake(snakeSpeed, testList) {
 
         let a = setInterval(function () {
-            console.log("Snake is Moving in default direction");
+            console.log("Snake is waiting for direction");
         }, snakeSpeed);
 
         document.onkeydown = function (e) {

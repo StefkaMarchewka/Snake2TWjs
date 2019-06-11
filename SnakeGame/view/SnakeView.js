@@ -11,7 +11,7 @@ class SnakeView {
     }
 
     renderSnakeHead(position, grids = document.getElementsByClassName("grid")) {
-        grids.item(position).style.backgroundColor = "red";
+        grids.item(position).style.backgroundColor = "green";
         grids.item(position).classList.add("snake");
         grids.item(position).classList.add("snakeHead");
 
@@ -20,7 +20,7 @@ class SnakeView {
     renderSnakeTail(snakeSize, boardSize, position, grids) {
         let currentTailPosition = position;
         for (let i = 0; i < snakeSize -1; i++) {
-            grids.item(currentTailPosition - boardSize).style.backgroundColor = "red";
+            grids.item(currentTailPosition - boardSize).style.backgroundColor = "green";
             grids.item(currentTailPosition - boardSize).classList.add("snake");
             currentTailPosition -= boardSize;
         }
@@ -33,20 +33,34 @@ class SnakeView {
         switch(direction) {
             case "left":
                 currentSnakeHeadPosition -= 1;
+                this.checkCollision(currentSnakeHeadPosition, snakeModel, testList);
                 this.move(currentSnakeHeadPosition, snakeModel, testList);
                 break;
             case "right":
                 currentSnakeHeadPosition += 1;
+                this.checkCollision(currentSnakeHeadPosition, snakeModel, testList);
                 this.move(currentSnakeHeadPosition, snakeModel, testList);
                 break;
             case "up":
                 currentSnakeHeadPosition -= 40;
+                this.checkCollision(currentSnakeHeadPosition, snakeModel, testList);
                 this.move(currentSnakeHeadPosition, snakeModel, testList);
                 break;
             case "down":
                 currentSnakeHeadPosition += 40;
+                this.checkCollision(currentSnakeHeadPosition, snakeModel, testList);
                 this.move(currentSnakeHeadPosition, snakeModel, testList);
                 break;
+        }
+    }
+
+    checkCollision(snakeHeadPosition, snakeModel) {
+        if (document.getElementsByClassName("grid").item(snakeHeadPosition).className === "grid wall") {
+            alert("TO JEST KURWA NIEPOWAZNE");
+            window.location.reload();
+        } else if (document.getElementsByClassName("grid").item(snakeHeadPosition).className === "grid snake snakeHead") {
+            alert("TO JEST KURWA NIEPOWAZNE");
+            window.location.reload();
         }
     }
 
@@ -66,7 +80,7 @@ class SnakeView {
         snakeCoordinates.shift();
 
         console.log(lastTailPart);
-        lastTailPart[0].style.backgroundColor = "blue";
+        lastTailPart[0].style.backgroundColor = "transparent";
         lastTailPart[0].className = "grid";
         console.log("tail deleted");
         console.log("snake size = " + grids.length);
