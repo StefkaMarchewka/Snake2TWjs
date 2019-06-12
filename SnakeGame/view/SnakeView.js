@@ -19,7 +19,7 @@ class SnakeView {
 
     renderSnakeTail(snakeSize, boardSize, position, grids) {
         let currentTailPosition = position;
-        for (let i = 0; i < snakeSize -1; i++) {
+        for (let i = 0; i < snakeSize - 1; i++) {
             grids.item(currentTailPosition - boardSize).style.backgroundColor = "green";
             grids.item(currentTailPosition - boardSize).classList.add("snake");
             currentTailPosition -= boardSize;
@@ -30,7 +30,7 @@ class SnakeView {
     moveSnake(direction, snakeModel, testList) {
         let currentSnakeHeadPosition = snakeModel.getHeadPosition;
 
-        switch(direction) {
+        switch (direction) {
             case "left":
                 currentSnakeHeadPosition -= 1;
                 this.checkCollision(currentSnakeHeadPosition, snakeModel, testList);
@@ -61,6 +61,8 @@ class SnakeView {
         } else if (document.getElementsByClassName("grid").item(snakeHeadPosition).className === "grid snake snakeHead") {
             alert("TO JEST KURWA NIEPOWAZNE");
             window.location.reload();
+        } else if (document.getElementsByClassName("grid").item(snakeHeadPosition).className === "grid fruit") {
+            alert("Fruit eaten");
         }
     }
 
@@ -76,7 +78,7 @@ class SnakeView {
         let snakeCoordinates = listOfCurrentCoordinates;
         let lastTailPartX = snakeCoordinates[0][0];
         let lastTailPartY = snakeCoordinates[0][1];
-        let lastTailPart = document.querySelectorAll('[x = \"'+lastTailPartX+'\"][y = \"'+lastTailPartY+'\"]');
+        let lastTailPart = document.querySelectorAll('[x = \"' + lastTailPartX + '\"][y = \"' + lastTailPartY + '\"]');
         snakeCoordinates.shift();
 
         console.log(lastTailPart);

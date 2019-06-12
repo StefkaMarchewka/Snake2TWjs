@@ -1,7 +1,6 @@
 class Fruit {
     constructor(pointsValue) {
-        this.pointsValue;
-       
+        this.pointsValue = pointsValue;
     }
 
 }
