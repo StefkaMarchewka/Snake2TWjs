@@ -4,7 +4,7 @@ class FruitController {
         this.fruitModel = fruitModel;
     }
 
-    setFruitOdBoard(){
+    setFruitOdBoard() {
         this.fruitView.drawFruit(this.fruitModel);
     }
 

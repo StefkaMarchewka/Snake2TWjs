@@ -10,10 +10,6 @@ class Snake {
         return this.score;
     }
 
-    set setScore(value) {
-        this.score = value;
-    }
-
     addScore(value) {
         this.score += value;
     }
@@ -25,6 +21,7 @@ class Snake {
     set setHeadPosition(value) {
         this.headPosition = value;
     }
+
     get getHeadPosition() {
         return this.headPosition;
     }

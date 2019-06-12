@@ -1,6 +1,4 @@
 class FruitView {
-    constructor() {
-    }
 
     drawFruit(fruitModel) {
         let grids = document.getElementsByClassName("grid");
@@ -10,23 +8,20 @@ class FruitView {
 
             randomIndex = Math.floor(Math.random() * grids.length);
         }
-        let gridForFruit = grids.item(randomIndex);
-        this.createPlaceForFruit(gridForFruit);
+
+        this.createPlaceForFruit(grids, randomIndex);
         return fruitModel = new Fruit(10);
     }
 
     checkIfNotCollision(grids, randomIndex) {
-        if (grids.item(randomIndex).className === "grid wall" ||
+        return !(grids.item(randomIndex).className === "grid wall" ||
             grids.item(randomIndex).className === "grid snake" ||
-            grids.item(randomIndex).className === "grid snake snakeHead") {
-            return false
-        } else {
-            return true;
-        }
+            grids.item(randomIndex).className === "grid snake snakeHead");
     }
 
-    createPlaceForFruit(gridForFruit) {
-        gridForFruit.style.backgroundColor = "orange";
+    createPlaceForFruit(grids, randomIndex) {
+        let gridForFruit = grids.item(randomIndex);
+        gridForFruit.style.backgroundColor = "red";
         gridForFruit.classList.add("fruit");
     }
 

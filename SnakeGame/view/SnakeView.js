@@ -1,9 +1,6 @@
 class SnakeView {
-    constructor() {
-    }
 
     renderSnakeOnStart(centerOfTheBoard, snakeSize, boardSize) {
-        console.log(snakeSize);
         let grids = document.getElementsByClassName("grid");
 
         this.renderSnakeHead(centerOfTheBoard, grids);
@@ -11,17 +8,17 @@ class SnakeView {
     }
 
     renderSnakeHead(position, grids = document.getElementsByClassName("grid")) {
-        grids.item(position).style.backgroundColor = "green";
-        grids.item(position).classList.add("snake");
-        grids.item(position).classList.add("snakeHead");
+        View.changeColorOfElement(grids, position, "green");
+        View.addClassToElement(grids, position, "snake");
+        View.addClassToElement(grids, position, "snakeHead");
 
     }
 
     renderSnakeTail(snakeSize, boardSize, position, grids) {
         let currentTailPosition = position;
         for (let i = 0; i < snakeSize - 1; i++) {
-            grids.item(currentTailPosition - boardSize).style.backgroundColor = "green";
-            grids.item(currentTailPosition - boardSize).classList.add("snake");
+            View.changeColorOfElement(grids, currentTailPosition - boardSize, "green");
+            View.addClassToElement(grids, currentTailPosition - boardSize, "snake");
             currentTailPosition -= boardSize;
         }
     }
@@ -58,20 +55,18 @@ class SnakeView {
     checkCollision(snakeHeadPosition, snakeModel) {
         if (document.getElementsByClassName("grid").item(snakeHeadPosition).className === "grid wall") {
             alert("You are dead");
-            window.location.reload();
+            View.reloadPage();
         } else if (document.getElementsByClassName("grid").item(snakeHeadPosition).className === "grid snake snakeHead") {
             alert("You are dead");
-            window.location.reload();
+            View.reloadPage();
         } else if (document.getElementsByClassName("grid").item(snakeHeadPosition).className === "grid fruit") {
-            let fruitObject = fruitView.drawFruit();
-            snakeController.addSnakeSpeed(4);
-            snakeModel.addScore(fruitObject.getPointsValue);
-            return "fruit";
+            SnakeView.createTrap(snakeModel);
+            return this.eatFruit(snakeModel);
         }
     }
 
-    move(currentSnakeHeadPosition, snakeMode, testList, collisionType) {
-        let listOfCurrentSnakecoordinates = this.updateBodyCoordinatesList(currentSnakeHeadPosition, snakeModel, testList);
+    move(currentSnakeHeadPosition, snakeModel, snakeBodyCoordinates, collisionType) {
+        let listOfCurrentSnakecoordinates = this.updateBodyCoordinatesList(currentSnakeHeadPosition, snakeModel, snakeBodyCoordinates);
         this.renderSnakeHead(currentSnakeHeadPosition);
         if (collisionType !== "fruit") {
             this.deleteLastPartOfTail(listOfCurrentSnakecoordinates, snakeModel);
@@ -80,25 +75,21 @@ class SnakeView {
 
 
     deleteLastPartOfTail(listOfCurrentCoordinates, snakeModel) {
-        let grids = document.getElementsByClassName("snake");
         let snakeCoordinates = listOfCurrentCoordinates;
         let lastTailPartX = snakeCoordinates[0][0];
         let lastTailPartY = snakeCoordinates[0][1];
         let lastTailPart = document.querySelectorAll('[x = \"' + lastTailPartX + '\"][y = \"' + lastTailPartY + '\"]');
         snakeCoordinates.shift();
 
-        console.log(lastTailPart);
         lastTailPart[0].style.backgroundColor = "transparent";
         lastTailPart[0].className = "grid";
         console.log("tail deleted");
-        console.log("snake size = " + grids.length);
         snakeModel.setListOfBodyCoordinates = snakeCoordinates;
     }
 
 
-    updateBodyCoordinatesList(snakeHeadPosition, snakeModel, testList) {
+    updateBodyCoordinatesList(snakeHeadPosition, snakeModel, snakeBodyCoordinates) {
         let grids = document.getElementsByClassName("grid");
-        let snakeBodyCoordinates = testList;
 
         snakeModel.setHeadPosition = snakeHeadPosition;
 
@@ -110,5 +101,24 @@ class SnakeView {
         snakeModel.setListOfBodyCoordinates = snakeBodyCoordinates;
         return snakeBodyCoordinates;
 
+    }
+
+    static createTrap(snakeModel) {
+        if (snakeModel.getScore % 30 === 0) {
+            BoardView.renderTraps();
+        }
+    }
+
+    eatFruit(snakeModel) {
+        let newFruit = fruitView.drawFruit();
+        snakeController.addSnakeSpeed(4);
+        snakeModel.addScore(newFruit.getPointsValue);
+        this.updateScoreTable(snakeModel.getScore);
+        return "fruit";
+    }
+
+    updateScoreTable(score) {
+        let scoreLabel = document.getElementById("score");
+        scoreLabel.innerText = score;
     }
 }
