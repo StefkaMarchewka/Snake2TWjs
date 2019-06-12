@@ -29,50 +29,53 @@ class SnakeView {
 
     moveSnake(direction, snakeModel, testList) {
         let currentSnakeHeadPosition = snakeModel.getHeadPosition;
+        let collisionType;
 
         switch (direction) {
             case "left":
                 currentSnakeHeadPosition -= 1;
-                this.checkCollision(currentSnakeHeadPosition, snakeModel, testList);
-                this.move(currentSnakeHeadPosition, snakeModel, testList);
+                collisionType = this.checkCollision(currentSnakeHeadPosition, snakeModel, testList);
+                this.move(currentSnakeHeadPosition, snakeModel, testList, collisionType);
                 break;
             case "right":
                 currentSnakeHeadPosition += 1;
-                this.checkCollision(currentSnakeHeadPosition, snakeModel, testList);
-                this.move(currentSnakeHeadPosition, snakeModel, testList);
+                collisionType = this.checkCollision(currentSnakeHeadPosition, snakeModel, testList);
+                this.move(currentSnakeHeadPosition, snakeModel, testList, collisionType);
                 break;
             case "up":
                 currentSnakeHeadPosition -= 40;
-                this.checkCollision(currentSnakeHeadPosition, snakeModel, testList);
-                this.move(currentSnakeHeadPosition, snakeModel, testList);
+                collisionType = this.checkCollision(currentSnakeHeadPosition, snakeModel, testList);
+                this.move(currentSnakeHeadPosition, snakeModel, testList, collisionType);
                 break;
             case "down":
                 currentSnakeHeadPosition += 40;
-                this.checkCollision(currentSnakeHeadPosition, snakeModel, testList);
-                this.move(currentSnakeHeadPosition, snakeModel, testList);
+                collisionType = this.checkCollision(currentSnakeHeadPosition, snakeModel, testList);
+                this.move(currentSnakeHeadPosition, snakeModel, testList, collisionType);
                 break;
         }
     }
 
     checkCollision(snakeHeadPosition, snakeModel) {
         if (document.getElementsByClassName("grid").item(snakeHeadPosition).className === "grid wall") {
-            alert("TO JEST KURWA NIEPOWAZNE");
+            alert("You are dead");
             window.location.reload();
         } else if (document.getElementsByClassName("grid").item(snakeHeadPosition).className === "grid snake snakeHead") {
-            alert("TO JEST KURWA NIEPOWAZNE");
+            alert("You are dead");
             window.location.reload();
         } else if (document.getElementsByClassName("grid").item(snakeHeadPosition).className === "grid fruit") {
-
             let fruitObject = fruitView.drawFruit();
+            snakeController.addSnakeSpeed(4);
             snakeModel.addScore(fruitObject.getPointsValue);
-            alert(snakeModel.getScore);
+            return "fruit";
         }
     }
 
-    move(currentSnakeHeadPosition, snakeMode, testList) {
+    move(currentSnakeHeadPosition, snakeMode, testList, collisionType) {
         let listOfCurrentSnakecoordinates = this.updateBodyCoordinatesList(currentSnakeHeadPosition, snakeModel, testList);
         this.renderSnakeHead(currentSnakeHeadPosition);
-        this.deleteLastPartOfTail(listOfCurrentSnakecoordinates, snakeModel);
+        if (collisionType !== "fruit") {
+            this.deleteLastPartOfTail(listOfCurrentSnakecoordinates, snakeModel);
+        }
     }
 
 

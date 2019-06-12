@@ -20,5 +20,12 @@ class BoardView {
             grids.item(listOfGridsToColor[i]).classList.add("wall");
         }
     }
+}
 
+let a = document.getElementById("newGameButton");
+
+a.addEventListener('click', clickHandler);
+
+function clickHandler() {
+    window.location.reload();
 }

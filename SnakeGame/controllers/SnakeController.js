@@ -4,14 +4,18 @@ class SnakeController {
         this.snakeView = snakeView;
         this.boardModel = boardModel;
         this.currentDirection = undefined;
+        this.snakeSpeed = 150;
+    }
+
+    addSnakeSpeed(value) {
+        this.snakeSpeed -= value;
     }
 
     initializeSnake() {
-        let snakeSpeed = 50;
         let startingSize = this.snakeModel.snakeSize;
         this.placeSnakeInTheCenter(startingSize);
         let testList = this.snakeModel.getListOfBodyCoordinates;
-        this.moveSnake(snakeSpeed, testList);
+        this.moveSnake(this.snakeSpeed, testList);
     }
 
     placeSnakeInTheCenter(snakeSize) {
@@ -43,7 +47,7 @@ class SnakeController {
 
         let a = setInterval(function () {
             console.log("Snake is waiting for direction");
-        }, snakeSpeed);
+        }, this.snakeSpeed);
 
         document.onkeydown = function (e) {
             switch (e.keyCode) {
@@ -57,7 +61,7 @@ class SnakeController {
                             this.snakeView.moveSnake("left", this.snakeModel, testList);
                             console.log("Snake is Moving left");
 
-                        }.bind(this), snakeSpeed);
+                        }.bind(this), this.snakeSpeed);
                     }
                     break;
                 case 38:
@@ -70,7 +74,7 @@ class SnakeController {
                             this.snakeView.moveSnake("up", this.snakeModel, testList);
                             console.log("Snake is Moving up");
 
-                        }.bind(this), snakeSpeed);
+                        }.bind(this), this.snakeSpeed);
                     }
                     break;
                 case 39:
@@ -83,7 +87,7 @@ class SnakeController {
                             this.snakeView.moveSnake("right", this.snakeModel, testList);
                             console.log("Snake is Moving right");
 
-                        }.bind(this), snakeSpeed);
+                        }.bind(this), this.snakeSpeed);
                     }
                     break;
                 case 40:
@@ -96,7 +100,7 @@ class SnakeController {
                             this.snakeView.moveSnake("down", this.snakeModel, testList);
                             console.log("Snake is Moving down");
 
-                        }.bind(this), snakeSpeed);
+                        }.bind(this), this.snakeSpeed);
                     }
             }
         }.bind(this)
