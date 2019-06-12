@@ -3,4 +3,8 @@ class Fruit {
         this.pointsValue = pointsValue;
     }
 
+    get getPointsValue() {
+        return this.pointsValue;
+    }
+
 }

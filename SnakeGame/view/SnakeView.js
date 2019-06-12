@@ -62,7 +62,10 @@ class SnakeView {
             alert("TO JEST KURWA NIEPOWAZNE");
             window.location.reload();
         } else if (document.getElementsByClassName("grid").item(snakeHeadPosition).className === "grid fruit") {
-            alert("Fruit eaten");
+
+            let fruitObject = fruitView.drawFruit();
+            snakeModel.addScore(fruitObject.getPointsValue);
+            alert(snakeModel.getScore);
         }
     }
 

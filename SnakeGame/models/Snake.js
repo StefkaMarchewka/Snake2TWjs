@@ -3,6 +3,19 @@ class Snake {
         this.startingSize = startingSize;
         this.headPosition = 0;
         this.listOfBodyCoordinates = [];
+        this.score = 0;
+    }
+
+    get getScore() {
+        return this.score;
+    }
+
+    set setScore(value) {
+        this.score = value;
+    }
+
+    addScore(value) {
+        this.score += value;
     }
 
     get snakeSize() {

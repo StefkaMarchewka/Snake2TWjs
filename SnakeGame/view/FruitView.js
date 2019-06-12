@@ -2,7 +2,7 @@ class FruitView{
     constructor() {
     }
 
-    drawFruit(){
+    drawFruit(fruitModel){
         let grids = document.getElementsByClassName("grid");
         let randomIndex = Math.floor(Math.random()*grids.length);
         
@@ -11,7 +11,8 @@ class FruitView{
             randomIndex = Math.floor(Math.random()*grids.length);
         }
         let gridForFruit = grids.item(randomIndex);
-        this.createPlaceForFruit(gridForFruit);       
+        this.createPlaceForFruit(gridForFruit);
+        return fruitModel = new Fruit(10);
     }
 
     checkIfNotCollision(grids, randomIndex){

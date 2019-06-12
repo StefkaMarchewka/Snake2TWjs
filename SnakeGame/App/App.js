@@ -15,6 +15,4 @@ let snakeController = new SnakeController(snakeModel, snakeView, boardModel);
 
 
 snakeController.initializeSnake();
-
-
 fruitContoller.setFruitOdBoard();
