@@ -31,9 +31,22 @@ class BoardView {
         while (!BoardView.checkCollisionWithSnake(grids, randomIndex)) {
             randomIndex = Math.floor(Math.random() * grids.length);
         }
-
-        View.changeColorOfElement(grids, randomIndex, "black");
-        View.addClassToElement(grids, randomIndex, "wall");
+        setInterval(function() {
+            View.changeColorOfElement(grids, randomIndex, "black");
+            View.addClassToElement(grids, randomIndex, "wall");
+            setTimeout(function(){  
+                View.changeColorOfElement(grids, randomIndex+1, "black");
+                View.addClassToElement(grids, randomIndex+1, "wall");
+                setTimeout(function(){
+                    View.changeColorOfElement(grids, randomIndex+2, "black");
+                View.addClassToElement(grids, randomIndex+2, "wall");
+                },500)
+            }, 1000);
+            View.changeColorOfElement(grids, randomIndex+1, "white");
+            View.removeClassFromElement(grids, randomIndex+1, "wall");
+            View.changeColorOfElement(grids, randomIndex+2, "white");
+            View.removeClassFromElement(grids, randomIndex+2, "wall");
+        }, 2000)
     }
 
     static checkCollisionWithSnake(grids, randomIndex) {

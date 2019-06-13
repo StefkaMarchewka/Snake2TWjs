@@ -12,6 +12,10 @@ class View {
         grid.item(elementIndex).className = className
     }
 
+    static removeClassFromElement(grids, elementIndex, className){
+        grids.item(elementIndex).classList.toggle(className, false);
+    }
+
     static reloadPage() {
         window.location.reload();
     }
