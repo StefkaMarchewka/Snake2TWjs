@@ -52,7 +52,11 @@ class BoardView {
     static checkCollisionWithSnake(grids, randomIndex) {
         return grids.item(randomIndex).className === "grid";
     }
+
+    
 }
+
+
 
 let a = document.getElementById("newGameButton");
 

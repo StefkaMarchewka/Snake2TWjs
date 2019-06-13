@@ -9,6 +9,11 @@ let fruitView = new FruitView;
 let fruit = new Fruit(10);
 let fruitContoller = new FruitController(fruit, fruitView);
 
+let rottenFruitView = new RottenFruitView;
+let rottenFruit = new RottenFruit(-10);
+let rottenFruitContoller = new RottenFruitController(rottenFruit, rottenFruitView);
+
+
 let snakeModel = new Snake(6);
 let snakeView = new SnakeView();
 let snakeController = new SnakeController(snakeModel, snakeView, boardModel);
@@ -16,6 +21,7 @@ let snakeController = new SnakeController(snakeModel, snakeView, boardModel);
 
 snakeController.initializeSnake();
 fruitContoller.setFruitOdBoard();
+rottenFruitContoller.setFruitOdBoard();
 
 /*
 let audio = new Audio('resources/soundtrack.mp3');

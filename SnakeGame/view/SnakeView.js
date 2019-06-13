@@ -62,6 +62,9 @@ class SnakeView {
         } else if (document.getElementsByClassName("grid").item(snakeHeadPosition).className === "grid fruit") {
             SnakeView.createTrap(snakeModel);
             return this.eatFruit(snakeModel);
+        } else if(document.getElementsByClassName("grid").item(snakeHeadPosition).className === "grid rotten"){
+            snakeModel.addScore(-10);
+            this.updateScoreTable(snakeModel.getScore);
         }
     }
 
@@ -108,6 +111,8 @@ class SnakeView {
             BoardView.renderTraps();
         }
     }
+
+
 
     eatFruit(snakeModel) {
         let newFruit = fruitView.drawFruit();
